@@ -41,7 +41,7 @@ export class WebhookService {
         },
       };
     }
-    return this.callSendAPI(senderPsid, response);
+    this.callSendAPI(senderPsid, response);
   }
 
   handlePostback(senderPsid, receivedPostback) {
@@ -64,7 +64,7 @@ export class WebhookService {
         message: response,
       };
 
-      return this.http.post('https://graph.facebook.com/v2.6/me/messages', {
+      this.http.post('https://graph.facebook.com/v2.6/me/messages', {
         params: {
           access_token: process.env.PAGE_ACCESS_TOKEN,
         },
