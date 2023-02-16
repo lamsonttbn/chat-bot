@@ -29,6 +29,10 @@ export class WebhookController {
             webhookEvent.message,
           );
         } else {
+          console.log(
+            '🚀 ~ file: webhook.controller.ts:37 ~ WebhookController ~ body.entry.forEach ~ webhookEvent',
+            webhookEvent,
+          );
           return this.webhookService.handlePostback(
             senderPsid,
             webhookEvent.postback,
