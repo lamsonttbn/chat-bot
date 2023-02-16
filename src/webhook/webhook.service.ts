@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import request from 'request';
 @Injectable()
 export class WebhookService {
-  handleMessage(senderPsid, receivedMessage) {
+  async handleMessage(senderPsid, receivedMessage) {
     let response: any;
 
     if (receivedMessage.text) {
@@ -39,7 +39,7 @@ export class WebhookService {
         },
       };
     }
-    this.callSendAPI(senderPsid, response);
+    await this.callSendAPI(senderPsid, response);
   }
 
   async handlePostback(senderPsid, receivedPostback) {
