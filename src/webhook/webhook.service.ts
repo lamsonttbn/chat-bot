@@ -3,10 +3,6 @@ import request from 'request';
 @Injectable()
 export class WebhookService {
   handleMessage(senderPsid, receivedMessage) {
-    console.log(
-      '🚀 ~ file: webhook.service.ts:6 ~ WebhookService ~ handleMessage ~ receivedMessage',
-      receivedMessage,
-    );
     let response: any;
 
     if (receivedMessage.text) {
@@ -59,31 +55,27 @@ export class WebhookService {
   }
 
   callSendAPI(senderPsid, response) {
-    try {
-      const request_body = {
-        recipient: {
-          id: senderPsid,
-        },
-        message: response,
-      };
-
-      request(
-        {
-          uri: 'https://graph.facebook.com/v2.6/me/messages',
-          qs: { access_token: process.env.PAGE_ACCESS_TOKEN },
-          method: 'POST',
-          json: request_body,
-        },
-        (err, _res, _body) => {
-          if (!err) {
-            console.log('Message sent!');
-          } else {
-            console.error('Unable to send message:' + err);
-          }
-        },
-      );
-    } catch (error) {
-      console.error('Unable to send message:' + error);
-    }
+    const request_body = {
+      recipient: {
+        id: senderPsid,
+      },
+      message: response,
+    };
+    console.log('hic');
+    request(
+      {
+        uri: 'https://graph.facebook.com/v2.6/me/messages',
+        qs: { access_token: process.env.PAGE_ACCESS_TOKEN },
+        method: 'POST',
+        json: request_body,
+      },
+      (err, _res, _body) => {
+        if (!err) {
+          console.log('Message sent!');
+        } else {
+          console.error('Unable to send message:' + err);
+        }
+      },
+    );
   }
 }
