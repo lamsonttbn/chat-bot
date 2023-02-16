@@ -1,9 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { HttpService } from '@nestjs/axios';
+import request from 'request';
 @Injectable()
 export class WebhookService {
-  constructor(private readonly http: HttpService) {}
-
   handleMessage(senderPsid, receivedMessage) {
     let response: any;
 
@@ -64,12 +62,21 @@ export class WebhookService {
         message: response,
       };
 
-      this.http.post('https://graph.facebook.com/v2.6/me/messages', {
-        params: {
-          access_token: process.env.PAGE_ACCESS_TOKEN,
+      request(
+        {
+          uri: 'https://graph.facebook.com/v2.6/me/messages',
+          qs: { access_token: process.env.PAGE_ACCESS_TOKEN },
+          method: 'POST',
+          json: request_body,
         },
-        data: request_body,
-      });
+        (err, _res, _body) => {
+          if (!err) {
+            console.log('Message sent!');
+          } else {
+            console.error('Unable to send message:' + err);
+          }
+        },
+      );
     } catch (error) {
       console.error('Unable to send message:' + error);
     }
