@@ -24,15 +24,9 @@ export class WebhookController {
         console.log('Sender PSID: ' + senderPsid);
 
         if (webhookEvent.message) {
-          return this.webhookService.handleMessage(
-            senderPsid,
-            webhookEvent.message,
-          );
+          this.webhookService.handleMessage(senderPsid, webhookEvent.message);
         } else if (webhookEvent.postback) {
-          return this.webhookService.handlePostback(
-            senderPsid,
-            webhookEvent.postback,
-          );
+          this.webhookService.handlePostback(senderPsid, webhookEvent.postback);
         }
       });
       return 'EVENT_RECEIVED';
