@@ -5,7 +5,12 @@ import { AppService } from './app.service';
 import { WebhookModule } from './webhook/webhook.module';
 
 @Module({
-  imports: [WebhookModule, ConfigModule.forRoot()],
+  imports: [
+    WebhookModule,
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

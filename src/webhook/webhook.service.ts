@@ -1,7 +1,10 @@
 import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import request from 'request';
 @Injectable()
 export class WebhookService {
+  constructor(private readonly configService: ConfigService) {}
+
   handleMessage(senderPsid, receivedMessage) {
     let response: any;
 
@@ -61,11 +64,11 @@ export class WebhookService {
       },
       message: response,
     };
-    console.log('hic');
+
     request(
       {
         uri: 'https://graph.facebook.com/v2.6/me/messages',
-        qs: { access_token: process.env.PAGE_ACCESS_TOKEN },
+        qs: { access_token: this.configService.get('PAGE_ACCESS_TOKEN') },
         method: 'POST',
         json: request_body,
       },
