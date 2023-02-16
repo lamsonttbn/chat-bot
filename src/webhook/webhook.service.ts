@@ -43,6 +43,10 @@ export class WebhookService {
   }
 
   handlePostback(senderPsid, receivedPostback) {
+    console.log(
+      '🚀 ~ file: webhook.service.ts:46 ~ WebhookService ~ handlePostback ~ receivedPostback',
+      receivedPostback,
+    );
     let response;
 
     const payload = receivedPostback.payload;
@@ -51,6 +55,7 @@ export class WebhookService {
     } else if (payload === 'no') {
       response = { text: 'Oops, try sending another image.' };
     }
+    this.callSendAPI(senderPsid, response);
   }
 
   callSendAPI(senderPsid, response) {
