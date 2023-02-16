@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import request from 'request';
 @Injectable()
 export class WebhookService {
-  async handleMessage(senderPsid, receivedMessage) {
+  handleMessage(senderPsid, receivedMessage) {
     let response: any;
 
     if (receivedMessage.text) {
@@ -39,10 +39,10 @@ export class WebhookService {
         },
       };
     }
-    await this.callSendAPI(senderPsid, response);
+    this.callSendAPI(senderPsid, response);
   }
 
-  async handlePostback(senderPsid, receivedPostback) {
+  handlePostback(senderPsid, receivedPostback) {
     let response;
 
     const payload = receivedPostback.payload;
@@ -51,10 +51,10 @@ export class WebhookService {
     } else if (payload === 'no') {
       response = { text: 'Oops, try sending another image.' };
     }
-    await this.callSendAPI(senderPsid, response);
+    this.callSendAPI(senderPsid, response);
   }
 
-  async callSendAPI(senderPsid, response) {
+  callSendAPI(senderPsid, response) {
     try {
       const request_body = {
         recipient: {
