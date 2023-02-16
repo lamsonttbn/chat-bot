@@ -3,6 +3,10 @@ import request from 'request';
 @Injectable()
 export class WebhookService {
   handleMessage(senderPsid, receivedMessage) {
+    console.log(
+      '🚀 ~ file: webhook.service.ts:6 ~ WebhookService ~ handleMessage ~ receivedMessage',
+      receivedMessage,
+    );
     let response: any;
 
     if (receivedMessage.text) {
