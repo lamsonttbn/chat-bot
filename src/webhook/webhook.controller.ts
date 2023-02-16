@@ -28,17 +28,14 @@ export class WebhookController {
             senderPsid,
             webhookEvent.message,
           );
-        } else {
-          console.log(
-            '🚀 ~ file: webhook.controller.ts:37 ~ WebhookController ~ body.entry.forEach ~ webhookEvent',
-            webhookEvent,
-          );
+        } else if (webhookEvent.postback) {
           return this.webhookService.handlePostback(
             senderPsid,
             webhookEvent.postback,
           );
         }
       });
+      return 'EVENT_RECEIVED';
     } else {
       return new NotFoundException('Not Found');
     }
