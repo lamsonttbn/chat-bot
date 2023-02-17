@@ -19,10 +19,10 @@
 // Imports dependencies and set up http server
 const express = require('express');
 const body_parser = require('body-parser');
+require('dotenv').config();
 const routerWebhook = require('./routers/webhook');
 const routerOptions = require('./routers/options');
 const routerOptionsPostback = require('./routers/optionspostback');
-require('dotenv').config();
 
 const app = express();
 
